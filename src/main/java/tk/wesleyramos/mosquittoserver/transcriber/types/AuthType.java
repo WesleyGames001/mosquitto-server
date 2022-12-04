@@ -1,5 +1,6 @@
 package tk.wesleyramos.mosquittoserver.transcriber.types;
 
+import tk.wesleyramos.mosquittoserver.Mosquitto;
 import tk.wesleyramos.mosquittoserver.MosquittoColor;
 import tk.wesleyramos.mosquittoserver.server.SocketClient;
 import tk.wesleyramos.mosquittoserver.server.SocketPacket;
@@ -15,14 +16,18 @@ public class AuthType implements TranscriberType {
 
             from.write(new SocketPacket(SocketPacketType.AUTH).set("status", 400).set("message", "request body invalid"));
             from.disconnect();
+
+            Mosquitto.service.getClients().remove(from);
             return;
         }
 
-        if (!packet.getString("credentials").equals("KAMILLE LINDA")) { // TODO: conectar ao banco de dados
+        if (!Mosquitto.config.testCredentials(packet.getString("credentials"))) {
             System.out.println(MosquittoColor.RED_BRIGHT + "[MosquittoServer] [Transcriber] [AUTH] (" + from.getDisplayName() + "): as credenciais enviadas são inválidas, autenticação negada!");
 
             from.write(new SocketPacket(SocketPacketType.AUTH).set("status", 401).set("message", "credentials invalid"));
             from.disconnect();
+
+            Mosquitto.service.getClients().remove(from);
             return;
         }
 

@@ -4,10 +4,24 @@ import tk.wesleyramos.mosquittoserver.server.SocketServer;
 
 import java.io.IOException;
 
+// TODO: certificar que o servidor não vai fechar por inatividade
 // TODO: criar um ambiente de interação com o prompt de comando
 public class Mosquitto {
 
-    public static SocketServer service;
+    public static MosquittoConfig config = new MosquittoConfig();
+    public static SocketServer service = new SocketServer();
+
+    static {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                config.stop();
+                service.stop();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println(MosquittoColor.RED + "[Server]: " + MosquittoColor.RED_BRIGHT + "não foi possível encerrar o servidor!");
+            }
+        }));
+    }
 
     public static void main(String[] args) {
         System.out.println();
@@ -17,7 +31,8 @@ public class Mosquitto {
         System.out.println();
 
         try {
-            service = new SocketServer("127.0.0.1", 26906);
+            config.start();
+            service.start(config.getAddress(), config.getPort());
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println(MosquittoColor.RED + "[Server]: " + MosquittoColor.RED_BRIGHT + "não foi possível iniciar o servidor!");

@@ -114,7 +114,11 @@ public class SocketPacket {
         List<SocketClient> clients = new ArrayList<>();
 
         for (SocketClient client : Mosquitto.service.getClients()) {
-            if (client.getName() != null && client.getName().equals(getTarget())) {
+            if (client.getName() == null) continue;
+
+            String name = client.getName(), target = getTarget();
+
+            if (name.equals(target) || (target.endsWith("*") && name.startsWith(target.substring(0, target.length() - 1)))) {
                 clients.add(client);
             }
         }

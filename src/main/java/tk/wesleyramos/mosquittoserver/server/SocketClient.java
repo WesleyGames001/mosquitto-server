@@ -43,8 +43,7 @@ public class SocketClient {
         try {
             this.writer.writeUTF(packet.target(getDisplayName()).toString());
             this.writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
     }
 

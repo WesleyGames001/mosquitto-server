@@ -12,12 +12,12 @@ import java.util.List;
 
 public class SocketServer {
 
-    private final ServerSocket service;
-    private final SocketKeepAlive keepAlive;
-    private final SocketServerReader reader;
-    private final List<SocketClient> clients;
+    private ServerSocket service;
+    private SocketKeepAlive keepAlive;
+    private SocketServerReader reader;
+    private List<SocketClient> clients;
 
-    public SocketServer(String address, int port) throws IOException {
+    public void start(String address, int port) throws IOException {
         this.clients = new ArrayList<>();
         this.service = new ServerSocket();
         this.service.bind(new InetSocketAddress(address, port));
@@ -27,6 +27,18 @@ public class SocketServer {
         this.reader.start();
 
         System.out.println(MosquittoColor.BLUE_BRIGHT + "[MosquittoServer] [Server]: " + MosquittoColor.WHITE_BRIGHT + "o servidor está rodando na porta: " + MosquittoColor.YELLOW_BRIGHT + port);
+    }
+
+    public void stop() throws IOException {
+        this.clients.forEach(SocketClient::disconnect);
+        this.clients.clear();
+
+        this.service.close();
+
+        this.keepAlive.interrupt();
+        this.reader.interrupt();
+
+        System.out.println(MosquittoColor.BLUE_BRIGHT + "[MosquittoServer] [Server]: " + MosquittoColor.WHITE_BRIGHT + "o servidor foi totalmente desligado. Até a próxima!");
     }
 
     public List<SocketClient> getClients() {
