@@ -17,7 +17,7 @@ public class ClientsCommand extends Command {
         System.out.println();
 
         if (Mosquitto.service.getClients().isEmpty()) {
-            System.out.println(MosquittoColor.YELLOW_BRIGHT + "  nenhum cliente conectado.");
+            System.out.println(MosquittoColor.WHITE_BRIGHT + "  nenhum cliente conectado.");
             System.out.println();
             return true;
         }
@@ -26,13 +26,13 @@ public class ClientsCommand extends Command {
             System.out.print(MosquittoColor.BLUE_BRIGHT + "  [" + client.getDisplayName() + "]: ");
 
             if (client.getName() == null) {
-                System.out.println(MosquittoColor.YELLOW_BRIGHT + "autenticando..");
+                System.out.println(MosquittoColor.WHITE_BRIGHT + "autenticando.." + MosquittoColor.RESET);
             } else {
-                System.out.println(MosquittoColor.YELLOW_BRIGHT + "conectado");
+                System.out.println(MosquittoColor.WHITE_BRIGHT + "conectado" + MosquittoColor.RESET);
             }
         }
 
-        System.out.println(MosquittoColor.RESET);
+        System.out.println();
 
         return true;
     }

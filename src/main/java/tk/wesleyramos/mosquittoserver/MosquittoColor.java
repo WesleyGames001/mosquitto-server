@@ -3,7 +3,8 @@ package tk.wesleyramos.mosquittoserver;
 public class MosquittoColor {
 
     // Reset
-    public static final String RESET = "\033[0m";  // Text Reset
+    //public static final String RESET = "\033[0m";  // Text Reset
+    public static final String RESET = "\033[0;37m";  // Text Reset TEMP
 
     // Regular Colors
     public static final String BLACK = "\033[0;30m";   // BLACK

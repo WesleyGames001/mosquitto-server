@@ -10,7 +10,7 @@ public class HelpCommand extends Command {
 
     @Override
     public boolean execute(String[] args) {
-        System.out.println(MosquittoColor.BLUE_BRIGHT + "[Ajuda]: " + MosquittoColor.WHITE + "ajuda, clientes, desligar" + MosquittoColor.RESET);
+        System.out.println(MosquittoColor.BLUE_BRIGHT + "[Ajuda]: " + MosquittoColor.WHITE + "ajuda, clientes, credenciais, desligar" + MosquittoColor.RESET);
         return true;
     }
 
