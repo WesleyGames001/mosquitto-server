@@ -1,8 +1,9 @@
-package tk.wesleyramos.mosquittoserver.server;
+package tk.wesleyramos.mosquittoserver.server.packets;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import tk.wesleyramos.mosquittoserver.Mosquitto;
+import tk.wesleyramos.mosquittoserver.server.SocketClient;
 
 import java.util.ArrayList;
 import java.util.List;

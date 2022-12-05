@@ -1,14 +1,14 @@
 package tk.wesleyramos.mosquittoserver.server.threads;
 
-import tk.wesleyramos.mosquittoserver.server.SocketPacket;
-import tk.wesleyramos.mosquittoserver.server.SocketPacketType;
 import tk.wesleyramos.mosquittoserver.server.SocketServer;
+import tk.wesleyramos.mosquittoserver.server.packets.SocketPacket;
+import tk.wesleyramos.mosquittoserver.server.packets.SocketPacketType;
 
-public class SocketKeepAlive extends Thread {
+public class SocketServerKeepAlive extends Thread {
 
     private final SocketServer service;
 
-    public SocketKeepAlive(SocketServer service) {
+    public SocketServerKeepAlive(SocketServer service) {
         this.service = service;
     }
 
@@ -23,7 +23,7 @@ public class SocketKeepAlive extends Thread {
 
             SocketPacket packet = new SocketPacket(SocketPacketType.KEEP_ALIVE).set("currentTimeMillis", System.currentTimeMillis());
 
-            service.getClients().removeIf(client -> {
+            this.service.getClients().removeIf(client -> {
                 if ((client.getLastKeepAlive() + 15000) < System.currentTimeMillis()) {
                     client.disconnect();
                     return true;
@@ -38,6 +38,6 @@ public class SocketKeepAlive extends Thread {
                     return true;
                 }
             });
-        } while (service.getServer().isBound());
+        } while (!service.getServer().isClosed());
     }
 }

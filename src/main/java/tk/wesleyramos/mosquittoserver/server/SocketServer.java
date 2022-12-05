@@ -1,7 +1,7 @@
 package tk.wesleyramos.mosquittoserver.server;
 
 import tk.wesleyramos.mosquittoserver.MosquittoColor;
-import tk.wesleyramos.mosquittoserver.server.threads.SocketKeepAlive;
+import tk.wesleyramos.mosquittoserver.server.threads.SocketServerKeepAlive;
 import tk.wesleyramos.mosquittoserver.server.threads.SocketServerReader;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.List;
 public class SocketServer {
 
     private ServerSocket service;
-    private SocketKeepAlive keepAlive;
+    private SocketServerKeepAlive keepAlive;
     private SocketServerReader reader;
     private List<SocketClient> clients;
 
@@ -21,12 +21,12 @@ public class SocketServer {
         this.clients = new ArrayList<>();
         this.service = new ServerSocket();
         this.service.bind(new InetSocketAddress(address, port));
-        this.keepAlive = new SocketKeepAlive(this);
+        this.keepAlive = new SocketServerKeepAlive(this);
         this.keepAlive.start();
         this.reader = new SocketServerReader(this);
         this.reader.start();
 
-        System.out.println(MosquittoColor.BLUE_BRIGHT + "[MosquittoServer] [Server]: " + MosquittoColor.WHITE_BRIGHT + "o servidor está rodando na porta: " + MosquittoColor.YELLOW_BRIGHT + port);
+        System.out.println(MosquittoColor.BLUE_BRIGHT + "[MosquittoServer] [Server]: " + MosquittoColor.WHITE_BRIGHT + "o servidor está rodando na porta: " + MosquittoColor.YELLOW_BRIGHT + port + MosquittoColor.RESET);
     }
 
     public void stop() throws IOException {
@@ -38,7 +38,7 @@ public class SocketServer {
         this.keepAlive.interrupt();
         this.reader.interrupt();
 
-        System.out.println(MosquittoColor.BLUE_BRIGHT + "[MosquittoServer] [Server]: " + MosquittoColor.WHITE_BRIGHT + "o servidor foi totalmente desligado. Até a próxima!");
+        System.out.println(MosquittoColor.BLUE_BRIGHT + "[MosquittoServer] [Server]: " + MosquittoColor.WHITE_BRIGHT + "o servidor foi totalmente desligado." + MosquittoColor.RESET);
     }
 
     public List<SocketClient> getClients() {
@@ -49,7 +49,7 @@ public class SocketServer {
         return this.service;
     }
 
-    public SocketKeepAlive getKeepAlive() {
+    public SocketServerKeepAlive getKeepAlive() {
         return this.keepAlive;
     }
 

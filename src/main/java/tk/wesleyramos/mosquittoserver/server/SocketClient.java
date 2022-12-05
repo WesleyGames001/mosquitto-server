@@ -1,6 +1,7 @@
 package tk.wesleyramos.mosquittoserver.server;
 
 import tk.wesleyramos.mosquittoserver.MosquittoColor;
+import tk.wesleyramos.mosquittoserver.server.packets.SocketPacket;
 import tk.wesleyramos.mosquittoserver.server.threads.SocketClientReader;
 
 import java.io.DataOutputStream;
@@ -11,11 +12,12 @@ public class SocketClient {
 
     private static long CURRENT_ID = 0;
 
-    private final DataOutputStream writer;
+    private final String display;
     private final Socket socket;
+    private final DataOutputStream writer;
     private final SocketClientReader reader;
 
-    private String display, name;
+    private String name;
     private long lastKeepAlive;
 
     public SocketClient(Socket socket) throws IOException {
@@ -29,7 +31,7 @@ public class SocketClient {
     }
 
     public void disconnect() {
-        System.out.println(MosquittoColor.BLUE_BRIGHT + "[MosquittoServer] [Server] (" + getDisplayName() + "): " + MosquittoColor.WHITE_BRIGHT + "o cliente teve sua conexão fechada com o servidor");
+        System.out.println(MosquittoColor.BLUE_BRIGHT + "[MosquittoServer] [Server] (" + getDisplayName() + "): " + MosquittoColor.WHITE_BRIGHT + "o cliente teve sua conexão fechada com o servidor" + MosquittoColor.RESET);
 
         try {
             this.name = null;

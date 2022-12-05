@@ -2,7 +2,7 @@ package tk.wesleyramos.mosquittoserver.server.threads;
 
 import org.json.JSONException;
 import tk.wesleyramos.mosquittoserver.server.SocketClient;
-import tk.wesleyramos.mosquittoserver.server.SocketPacket;
+import tk.wesleyramos.mosquittoserver.server.packets.SocketPacket;
 import tk.wesleyramos.mosquittoserver.transcriber.Transcriber;
 
 import java.io.BufferedInputStream;

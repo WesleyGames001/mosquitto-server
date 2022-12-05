@@ -1,21 +1,24 @@
 package tk.wesleyramos.mosquittoserver;
 
+import tk.wesleyramos.mosquittoserver.server.SocketConfig;
 import tk.wesleyramos.mosquittoserver.server.SocketServer;
+import tk.wesleyramos.mosquittoserver.terminal.Terminal;
 
 import java.io.IOException;
 
-// TODO: certificar que o servidor não vai fechar por inatividade
-// TODO: criar um ambiente de interação com o prompt de comando
+// TODO: adicionar criptografia pont-a-ponta
 public class Mosquitto {
 
-    public static MosquittoConfig config = new MosquittoConfig();
+    public static SocketConfig config = new SocketConfig();
     public static SocketServer service = new SocketServer();
+    public static Terminal terminal = new Terminal();
 
     static {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                config.stop();
+                terminal.stop();
                 service.stop();
+                config.stop();
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println(MosquittoColor.RED + "[Server]: " + MosquittoColor.RED_BRIGHT + "não foi possível encerrar o servidor!");
@@ -33,6 +36,7 @@ public class Mosquitto {
         try {
             config.start();
             service.start(config.getAddress(), config.getPort());
+            terminal.start();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println(MosquittoColor.RED + "[Server]: " + MosquittoColor.RED_BRIGHT + "não foi possível iniciar o servidor!");

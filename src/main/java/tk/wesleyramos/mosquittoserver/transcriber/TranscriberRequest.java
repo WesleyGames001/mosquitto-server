@@ -1,7 +1,7 @@
 package tk.wesleyramos.mosquittoserver.transcriber;
 
 import tk.wesleyramos.mosquittoserver.server.SocketClient;
-import tk.wesleyramos.mosquittoserver.server.SocketPacket;
+import tk.wesleyramos.mosquittoserver.server.packets.SocketPacket;
 
 public abstract class TranscriberRequest {
 

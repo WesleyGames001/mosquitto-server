@@ -2,8 +2,8 @@ package tk.wesleyramos.mosquittoserver.transcriber;
 
 import tk.wesleyramos.mosquittoserver.MosquittoColor;
 import tk.wesleyramos.mosquittoserver.server.SocketClient;
-import tk.wesleyramos.mosquittoserver.server.SocketPacket;
-import tk.wesleyramos.mosquittoserver.server.SocketPacketType;
+import tk.wesleyramos.mosquittoserver.server.packets.SocketPacket;
+import tk.wesleyramos.mosquittoserver.server.packets.SocketPacketType;
 import tk.wesleyramos.mosquittoserver.transcriber.types.AuthType;
 import tk.wesleyramos.mosquittoserver.transcriber.types.KeepAliveType;
 import tk.wesleyramos.mosquittoserver.transcriber.types.MessengerType;
